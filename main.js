@@ -6,8 +6,10 @@ const navbarHeight = navbar.getBoundingClientRect().height;
 document.addEventListener('scroll', () => {
     if(window.scrollY > navbarHeight) {
         navbar.classList.add('navbar--dark');
+        navbarToggleBtn.classList.add('navbar--dark');
     }else{
         navbar.classList.remove('navbar--dark');
+        navbarToggleBtn.classList.remove('navbar--dark');
     }
 
 });
@@ -23,8 +25,14 @@ navbarMenu.addEventListener('click', (event) => {
     if (link == null) {
         return;
     }
-
+    navbarMenu.classList.remove('open');
     scrollSection(link);
+});
+
+// Navbar toggle button for small screen
+const navbarToggleBtn = document.querySelector('.navbar__toggle-btn');
+navbarToggleBtn.addEventListener('click', () => {
+    navbarMenu.classList.toggle('open');
 });
 
 // Handle click on "contact me" button on home
@@ -35,7 +43,7 @@ homeContactBtn.addEventListener('click', () => {
 
 // Make home slowly fade to transparent as the window scrolls down
 const home = document.querySelector('.home__container');
-const homeHeight =home.getBoundingClientRect().height;
+const homeHeight = home.getBoundingClientRect().height;
 document.addEventListener('scroll', () => {
     home.style.opacity = 1 - window.scrollY / homeHeight;
 });
@@ -60,10 +68,17 @@ const projectContainer = document.querySelector('.work__projects');
 const projects = document.querySelectorAll('.project');
 workBtnContainer.addEventListener('click', (e) => {
     const filter =
-    e.target.dataset.filter || e.target.parenNode.dataset.filter;
+    e.target.dataset.filter || e.target.parentNode.dataset.filter;
     if (filter == null) {
         return;
     }
+
+    // Remove slection from the previous item and select the new one
+    const active = document.querySelector('.category__btn.selected')
+    active.classList.remove('selected');
+    const target = e.target.nodeName === 'BUTTON' ? e.target : e.target.parentNode;
+    target.classList.add('selected');
+
     projectContainer.classList.add('anim-out');
     setTimeout(() => {
         projects.forEach((project) =>{

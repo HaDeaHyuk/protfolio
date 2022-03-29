@@ -130,23 +130,20 @@ p {
 .navbar__menu__item {
   padding: 8px 12px;
   margin: 0 4px;
+  color: white;
   cursor: pointer;
-  /* border-radius: var(--size-border-radius); */
-}
-
-.navbar__menu__item.active {
-  border: 1px solid var(--color-white);
+  border: 1px solid transparent;
   border-radius: var(--size-border-radius);
 }
 
 .navbar__menu__item:hover {
+  border: 1px solid var(--color-white);
   background-color: var(--color-purple);
-  border-radius: var(--size-border-radius);
 }
 
 .navbar__toggle-btn {
   position: absolute;
-  top: 22px;
+  top: 13px;
   right: 32px;
   font-size: 24px;
   color: var(--color-white);
@@ -327,13 +324,13 @@ p {
   padding: 8px 48px;
 }
 
-.category__btn.active .category__count,
+.category__btn.selected .category__count,
 .category__btn:hover .category__count {
   opacity: 1;
   top: 0;
 }
 
-.category__btn.active,
+.category__btn.selected,
 .category__btn:hover {
   background-color: var(--color-purple);
   color: var(--color-white);
@@ -408,7 +405,7 @@ p {
 }
 
 .project__desciption h3 {
-  color: var(--color-white);
+  color: var(--color-orange);
 }
 
 .project__desciption h3:after {
@@ -416,9 +413,9 @@ p {
   display: flex;
   position: relative;
   left: 50%;
-  width: 25px;
+  width: 50px;
   height: 2px;
-  margin-left: -12px;
+  transform: translateX(-50%);
   margin-top: 8px;
   background-color: var(--color-dark-white);
 }
@@ -515,11 +512,21 @@ p {
 @media screen and (max-width: 768px) {
   .navbar__toggle-btn {
     display: block;
+    transition: all var(--animation-duration) ease;
   }
 
   #navbar {
     flex-direction: column;
     align-items: flex-start;
+    background-color: var(--color-dark-Cyan);
+  }
+
+  #navbar.navbar--dark {
+    padding: 16px;
+  }
+
+  .navbar__toggle-btn.navbar--dark {
+    top: 22px;
   }
 
   .navbar__menu {
@@ -527,6 +534,10 @@ p {
     text-align: center;
     width: 100%;
     display: none;
+  }
+
+  .navbar__menu.open {
+    display: block;
   }
 
   .about__majors {
